@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bot Detection Test Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 10px;
+    }
+    .info-box {
+      background-color: #e8f5e9;
+      border-left: 4px solid #4CAF50;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+    .visitor-id {
+      font-family: monospace;
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 4px;
+      word-break: break-all;
+      margin: 10px 0;
+    }
+    .loading {
+      color: #666;
+      font-style: italic;
+    }
+    .details {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+    .detail-item {
+      margin: 8px 0;
+      padding: 5px;
+    }
+    .detail-label {
+      font-weight: bold;
+      color: #555;
+    }
+    pre {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Bot Detection Test Page</h1>
+    
+    <div class="info-box">
+      <p><strong>Status:</strong> <span id="status" class="loading">Initializing Fingerprint.js...</span></p>
+    </div>
+
+    <div id="result-container" style="display: none;">
+      <h2>Visitor Information</h2>
+      
+      <div class="detail-item">
+        <span class="detail-label">Visitor ID:</span>
+        <div class="visitor-id" id="visitor-id"></div>
+      </div>
+
+      <div class="details">
+        <h3>Detection Details</h3>
+        <div id="details"></div>
+      </div>
+
+      <h3>Full Result</h3>
+      <pre id="full-result"></pre>
+    </div>
+  </div>
+
+  <script>
+    // Initialize the agent on page load.
+    const fpPromise = import('https://fpjscdn.net/v3/9wUc8GBl3kTD3yyxZHy6')
+      .then(FingerprintJS => FingerprintJS.load())
+
+    // Get the visitorId when you need it.
+    fpPromise
+      .then(fp => {
+        document.getElementById('status').textContent = 'Loading visitor information...';
+        document.getElementById('status').style.color = '#ff9800';
+        return fp.get();
+      })
+      .then(result => {
+        const visitorId = result.visitorId;
+        console.log('Visitor ID:', visitorId);
+        console.log('Full Result:', result);
+
+        // Update status
+        document.getElementById('status').textContent = 'Detection Complete ✓';
+        document.getElementById('status').style.color = '#4CAF50';
+        document.getElementById('status').classList.remove('loading');
+
+        // Show results
+        document.getElementById('result-container').style.display = 'block';
+        document.getElementById('visitor-id').textContent = visitorId;
+
+        // Display key details
+        const detailsDiv = document.getElementById('details');
+        const details = [
+          { label: 'Confidence Score', value: result.confidence?.score || 'N/A' },
+          { label: 'Request ID', value: result.requestId || 'N/A' },
+          { label: 'Browser Name', value: result.components?.browserName?.value || 'N/A' },
+          { label: 'Browser Version', value: result.components?.browserVersion?.value || 'N/A' },
+          { label: 'OS', value: result.components?.os?.value || 'N/A' },
+          { label: 'Device Type', value: result.components?.deviceType?.value || 'N/A' },
+          { label: 'Screen Resolution', value: result.components?.screenResolution?.value?.join('x') || 'N/A' },
+          { label: 'Timezone', value: result.components?.timezone?.value || 'N/A' },
+          { label: 'Language', value: result.components?.language?.value || 'N/A' },
+          { label: 'Platform', value: result.components?.platform?.value || 'N/A' }
+        ];
+
+        details.forEach(detail => {
+          const item = document.createElement('div');
+          item.className = 'detail-item';
+          item.innerHTML = `<span class="detail-label">${detail.label}:</span> ${detail.value}`;
+          detailsDiv.appendChild(item);
+        });
+
+        // Display full result as JSON
+        document.getElementById('full-result').textContent = JSON.stringify(result, null, 2);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('status').textContent = 'Error: ' + error.message;
+        document.getElementById('status').style.color = '#f44336';
+        document.getElementById('status').classList.remove('loading');
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+-r base.requirements.txt
+
+## Production-only dependencies can be added below
+transformers==4.56.2
+huggingface-hub==0.35.1

@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+"""Entry point script for Calico prompt mode."""
+import sys
+import os
+from pathlib import Path
+
+# Add parent directory to path
+repo_root = Path(__file__).parent.parent
+sys.path.insert(0, str(repo_root))
+
+# Load .env file from repository root
+env_file = repo_root / '.env'
+if env_file.exists():
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(env_file)
+    except ImportError:
+        # If python-dotenv not installed, manually load basic env vars
+        with open(env_file) as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#') and '=' in line:
+                    key, value = line.split('=', 1)
+                    key = key.strip()
+                    value = value.strip().strip('"').strip("'")
+                    if key and not os.environ.get(key):
+                        os.environ[key] = value
+
+from calico.cli.prompt_mode import main
+
+if __name__ == "__main__":
+    sys.exit(main())

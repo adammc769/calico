@@ -1,0 +1,20 @@
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+archive/
+test_pages/
+venv/
+.env
+.keys/*
+!.keys/.gitkeep
+data/*.db
+playwright-mcp/node_modules/
+playwright-mcp/dist/
+
+celerybeat-schedule
+# Session data (screenshots, logs, training data)
+sessions/
+!sessions/.gitkeep
+
+# Archive Files
+archive/

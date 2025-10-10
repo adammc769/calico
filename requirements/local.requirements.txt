@@ -1,0 +1,7 @@
+-r base.requirements.txt
+
+## Tooling for local development and testing
+
+pytest==7.4.4
+pytest-base-url==2.1.0
+pytest-playwright==0.5.2

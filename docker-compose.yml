@@ -1,0 +1,169 @@
+services:
+  # Python Backend API Server
+  api-server:
+    build: .
+    container_name: calico-api-server
+    command: python -m calico.workflow.cli serve-api --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=${DATABASE_URL:-postgresql+psycopg2://calico:calico@postgres:5432/calico}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
+    volumes:
+      - .:/app
+      - calico-playwright-cache:/root/.cache/ms-playwright
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - calico-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    shm_size: '2gb'
+    mem_limit: 8g
+
+  # Interactive CLI Container
+  cli:
+    build: .
+    container_name: calico-cli
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=${DATABASE_URL:-postgresql+psycopg2://calico:calico@postgres:5432/calico}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
+    volumes:
+      - .:/app
+      - calico-playwright-cache:/root/.cache/ms-playwright
+      - calico-cli-history:/root/.calico
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - calico-network
+    profiles:
+      - cli
+    shm_size: '2gb'
+    mem_limit: 8g
+
+  # General App Container (for testing and utilities)
+  app:
+    build: .
+    container_name: calico-app
+    command: sleep infinity
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=${DATABASE_URL:-postgresql+psycopg2://calico:calico@postgres:5432/calico}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
+    volumes:
+      - .:/app
+      - calico-playwright-cache:/root/.cache/ms-playwright
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - calico-network
+    shm_size: '2gb'
+    mem_limit: 8g
+
+  # Celery Worker
+  celery-worker:
+    build: .
+    container_name: calico-celery-worker
+    command: celery -A calico.workflow.celery_app worker --loglevel=info
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=${DATABASE_URL:-postgresql+psycopg2://calico:calico@postgres:5432/calico}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
+    volumes:
+      - .:/app
+      - calico-playwright-cache:/root/.cache/ms-playwright
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - calico-network
+    shm_size: '2gb'
+    mem_limit: 8g
+
+  # Celery Beat Scheduler
+  celery-beat:
+    build: .
+    container_name: calico-celery-beat
+    command: celery -A calico.workflow.celery_app beat --loglevel=info
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DATABASE_URL=${DATABASE_URL:-postgresql+psycopg2://calico:calico@postgres:5432/calico}
+      - CELERY_BROKER_URL=${CELERY_BROKER_URL:-redis://redis:6379/0}
+    volumes:
+      - .:/app
+      - calico-playwright-cache:/root/.cache/ms-playwright
+    depends_on:
+      - redis
+      - postgres
+    networks:
+      - calico-network
+
+  # Redis Cache/Broker
+  redis:
+    image: redis:7-alpine
+    container_name: calico-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - calico-redis-data:/data
+    networks:
+      - calico-network
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: calico-postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-calico}
+      - POSTGRES_USER=${POSTGRES_USER:-calico}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-calico}
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - calico-postgres-data:/var/lib/postgresql/data
+    networks:
+      - calico-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-calico}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  calico-network:
+    driver: bridge
+
+volumes:
+  calico-playwright-cache:
+    driver: local
+  calico-redis-data:
+    driver: local
+  calico-postgres-data:
+    driver: local
+  calico-cli-history:
+    driver: local
