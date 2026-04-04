@@ -47,8 +47,10 @@ async def create_local_executor(
     logger.info(f"Creating local Playwright executor for session {session_id}")
     
     # Setup console log file
-    session_dir = Path("sessions") / session_id
-    session_dir.mkdir(parents=True, exist_ok=True)
+    from calico.utils.session_storage import SessionStorage
+
+    storage = SessionStorage(session_id=session_id)
+    session_dir = storage.session_dir
     console_log_path = session_dir / "console.log"
     console_log_file = open(console_log_path, "a", encoding="utf-8")
     
