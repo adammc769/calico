@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
@@ -13,6 +14,16 @@ logger = logging.getLogger(__name__)
 
 class SessionStorage:
     """Manages session-based file storage for screenshots, logs, and training data."""
+
+    _WINDOWS_ILLEGAL_CHARS = r'<>:"/\\|?*'
+    _WINDOWS_ILLEGAL_RE = re.compile(rf"[{re.escape(_WINDOWS_ILLEGAL_CHARS)}\x00-\x1F]")
+
+    @classmethod
+    def _sanitize_path_segment(cls, value: str) -> str:
+        sanitized = cls._WINDOWS_ILLEGAL_RE.sub("_", value)
+        sanitized = sanitized.rstrip(" .")
+        sanitized = sanitized.strip()
+        return sanitized or "session"
     
     def __init__(self, session_id: Optional[str] = None, base_dir: str = "./sessions"):
         """
@@ -23,8 +34,9 @@ class SessionStorage:
             base_dir: Base directory for all sessions (default: ./sessions)
         """
         self.session_id = session_id or str(uuid.uuid4())
+        self._fs_session_id = self._sanitize_path_segment(self.session_id)
         self.base_dir = Path(base_dir)
-        self.session_dir = self.base_dir / self.session_id
+        self.session_dir = self.base_dir / self._fs_session_id
         
         # Create session subdirectories
         self.photos_dir = self.session_dir / "photos"
